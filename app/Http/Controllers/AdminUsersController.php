@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests;
 
+
 class AdminUsersController extends Controller
 {
     /**
@@ -41,6 +42,9 @@ class AdminUsersController extends Controller
     public function store(Request $request)
     {
         //
+        return $request->all();
+        
+        
     }
 
     /**
