@@ -51,6 +51,19 @@
     </div>
 
     {!! Form::close() !!}
+
+    {!! Form::open(['method'=>'DELETE', 'action'=> ['AdminUsersController@destroy', $user->id]]) !!}
+
+
+
+    <div class="form-group">
+        {!! Form::submit('Delete user', ['class'=>'btn btn-danger col-sm-6']) !!}
+    </div>
+
+    {!! Form::close() !!}
+
+
+
 </div>
 
     @if(count($errors) > 0 )

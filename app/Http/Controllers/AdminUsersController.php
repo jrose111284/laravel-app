@@ -9,6 +9,7 @@ use App\Role;
 use App\Http\Requests;
 use App\http\Requests\UserRequest;
 use App\http\Requests\UserEditRequest;
+use Illuminate\Support\Facades\Session;
 
 
 class AdminUsersController extends Controller
@@ -50,14 +51,19 @@ class AdminUsersController extends Controller
     {
         //
 
-        if (trim($request->password == '')){
+        if(trim($request->password) == ''){
 
             $input = $request->except('password');
 
-        }else {
-            $input = $request-> all();
-        $input['password'] = bcrypt($request->password);
+        } else{
+
+
+            $input = $request->all();
+
+            $input['password'] = bcrypt($request->password);
+
         }
+
 
 
         if($file = $request->file('photo_id')) {
@@ -73,12 +79,15 @@ class AdminUsersController extends Controller
 
             $input['photo_id'] = $photo->id;
 
+
         }
 
 
         User::create($input);
 
+
         return redirect('/admin/user');
+
 
 
     }
@@ -121,14 +130,21 @@ class AdminUsersController extends Controller
         //
         $user = User::findOrFail($id);
 
-        if (trim($request->password == '')){
 
-        $input = $request->except('password');
+        if(trim($request->password) == ''){
 
-    }else {
-        $input = $request-> all();
-        $input['password'] = bcrypt($request->password);
-    }
+            $input = $request->except('password');
+
+        } else{
+
+
+            $input = $request->all();
+
+            $input['password'] = bcrypt($request->password);
+
+        }
+
+
 
 
         if($file = $request->file('photo_id')){
@@ -145,10 +161,17 @@ class AdminUsersController extends Controller
 
 
         }
+
+
+
         $user->update($input);
 
 
         return redirect('/admin/user');
+
+
+
+
 
     }
 
@@ -161,5 +184,19 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::findOrFail($id);
+
+
+//        unlink(public_path() . $user->photo->file);
+
+
+        $user->delete();
+
+
+//        Session::flash('deleted_user','The user has been deleted');
+
+
+        return redirect('/admin/user');
+
     }
 }
