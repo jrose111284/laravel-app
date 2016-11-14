@@ -2,7 +2,11 @@
 
 @section('content')
 
+    <div class="col-sm-3">
 
+        <img src="{{$user->photo ? $user->photo->file : 'http://placehold.it400x400'}}" alt="" class="img-responsive img-rounded">
+    </div>
+<div class="col-sm-9">
     {!! Form::model($user, ['method'=>'PATCH', 'action'=> ['AdminUsersController@update', $user->id],'files'=>true]) !!}
 
 
@@ -48,6 +52,7 @@
 
     {!! Form::close() !!}
 
-{!! Form::close() !!}
+
+</div>
 
 @stop
