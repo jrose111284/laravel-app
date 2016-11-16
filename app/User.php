@@ -46,23 +46,22 @@ class User extends Authenticatable
 
 
         $this->attributes['password'] = $password;
-        
+
     }
-    
+
+
     public function isAdmin(){
 
 
         if($this->role->name  == "admin" && $this->is_active == 1){
 
-
             return true;
 
+        } else {
+
+            return false;Route::resource('admin/user', 'AdminUsersController');
+
         }
-
-
-        return false;
-
-
 
     }
 

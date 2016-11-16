@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\User;
+use App\Http\Requests\UserEditRequest;
+use App\Http\Requests\UserRequest;
 use App\Photo;
 use App\Role;
+use App\User;
+use Illuminate\Http\Request;
+
 use App\Http\Requests;
-use App\http\Requests\UserRequest;
-use App\http\Requests\UserEditRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 
@@ -136,16 +138,13 @@ class AdminUsersController extends Controller
             $input = $request->except('password');
 
         } else{
-
-
+            
             $input = $request->all();
 
             $input['password'] = bcrypt($request->password);
 
         }
-
-
-
+        
 
         if($file = $request->file('photo_id')){
 
@@ -158,21 +157,14 @@ class AdminUsersController extends Controller
 
 
             $input['photo_id'] = $photo->id;
-
-
         }
-
-
+        
 
         $user->update($input);
 
 
         return redirect('/admin/user');
-
-
-
-
-
+        
     }
 
     /**
@@ -187,7 +179,7 @@ class AdminUsersController extends Controller
         $user = User::findOrFail($id);
 
 
-//        unlink(public_path() . $user->photo->file);
+       unlink(public_path() . $user->photo->file);
 
 
         $user->delete();

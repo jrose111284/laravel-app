@@ -20,13 +20,19 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 
-
-
 Route::get('/admin', function () {
     return view('admin.index');
 });
 
-Route::group(['middleware'=>"Admin"], function(){
 
+Route::group(['middleware'=>'admin'], function(){
+
+
+    Route::resource('admin/user', 'AdminUsersController');
+    Route::resource('admin/posts', 'AdminPostsController');
 });
-Route::resource('admin/user', 'AdminUsersController');
+
+
+
+//Route::resource('admin/user', 'AdminUsersController');
+//Route::resource('admin/posts', 'AdminPostsController');
