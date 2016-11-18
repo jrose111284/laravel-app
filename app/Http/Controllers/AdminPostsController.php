@@ -158,5 +158,12 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         //
+
+        Auth::user()->posts()->whereId($id)->first()->delete();
+
+
+        return redirect('/admin/posts');
+
+
     }
 }
