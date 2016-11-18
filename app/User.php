@@ -59,10 +59,16 @@ class User extends Authenticatable
 
         } else {
 
-            return false;Route::resource('admin/user', 'AdminUsersController');
+            return false;
 
         }
 
+    }
+    
+    
+    public function posts(){
+        return $this->hasMany('App\Post');
+        
     }
 
 
